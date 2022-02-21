@@ -9,6 +9,59 @@ import random
 import urllib
 import threading
 
+print \
+"""
+
+                  /\    
+                 / |\   
+                / /\ \   
+               / /  \ \  
+              / /    \ |
+             /_/      \_|
+             \    '`    /
+              )   ||   ( 
+              |   ||   | 
+              |   ||   | 
+              |   ||   |
+              |   ||   |
+              |   ||   | 
+              |   ||   | 
+              |   ||   | 
+              |   ||   | 
+              |   ||   |
+  /           |   ||   |           =
+ /(           |   ||   |           )=
+ |`\_         |   ||   |         _/'|
+ |`. `-._     |   ||   |     _,-' ,'|
+ (   ` . `-._ |  _--_  | _,-' , '   )
+  `.._   ` . `-./.__.\.-' , '   _,-'
+      `-._   ` | /  \ | '   _,-'
+          `-._/ |_()_| \_,-'
+       ___.-'   ______   `-,
+      '-----.  |______|   /  I'm an assassin I was 
+             \  ______   /   in fear and exhaustion in my 
+             |  \>  </  /    heart. Soon my prior sins may hit me. I will offer blood to my
+              \________/     weapon to save me. If one year has passed, I will be saved from the worst case.
+              _]______[_    
+              |        |     
+              |________|
+               ]______[#     
+              |        |
+              |________|     
+              _]______[_     
+              |        |     
+              |________|    
+              _]______[_
+              |        |
+              |________|
+                ]____[
+              .'      `.
+              | <   >  |>
+             <|   <   >| 
+               `.____.'
+                 V   V 
+"""""""""
+
 def usage():
 	# print ''' usage : python attack.py [-t] [-c] http://www.zhihu.com/
 	# -h : help
@@ -3455,175 +3508,6 @@ def referer_list():
 	return(headers_referers)
 
 # generates a user agent array
-def keyword_list():
-	global keyword_top
-	keyword_top.append('Anonymous')	
-	keyword_top.append('sex')
-        keyword_top.append('World Cup')
-        keyword_top.append('Singer')
-        keyword_top.append('ISIS')
-	keyword_top.append('Facebook')
-        keyword_top.append('Robin Williams')
-	keyword_top.append('World Cup')
-	keyword_top.append('ca si le roi')
-        keyword_top.append('Ebola?')
-	keyword_top.append('Flappy Bird')
-	keyword_top.append('Conchita Wurst')
-        keyword_top.append('Frozen')
-	keyword_top.append('iPhone')
-	keyword_top.append('iPhone5')
-	keyword_top.append('iPhone6')
-	keyword_top.append('iPhone7')
-        keyword_top.append('Samsung Galaxy S5')
-	keyword_top.append('Nexus 6')
-	keyword_top.append('Moto G')
-	keyword_top.append('Samsung Note 4')
-        keyword_top.append('LG G3')
-	keyword_top.append('Xbox One')
-        keyword_top.append('Apple Watch')
-	keyword_top.append('Nokia X')
-	keyword_top.append('Ipad Air')
-	keyword_top.append('facebook')
-	keyword_top.append('IPhone')
-	keyword_top.append('Star War')
-	keyword_top.append('Windows 10')
-	keyword_top.append('Zens Phone')
-        keyword_top.append('Son Tung M-TP')
-	keyword_top.append('Viurs')
-	keyword_top.append('RIP Face')
-	keyword_top.append('tao quan')
-	keyword_top.append('gia xang')
-	keyword_top.append('Roll Royce')
-	keyword_top.append('Hai VL')
-	keyword_top.append('FIFA')
-	keyword_top.append('Bill Gate')
-	keyword_top.append('UFO')
-    	keyword_top.append('Microsoft')
-	keyword_top.append('Mark Zuckerberg')
-        keyword_top.append('youtube')
-        keyword_top.append('facebook')
-        keyword_top.append('download')
-        keyword_top.append('movies')
-        keyword_top.append('google')
-        keyword_top.append('streaming')
-        keyword_top.append('hotmail')
-        keyword_top.append('facebook login')
-        keyword_top.append('internet')
-        keyword_top.append('yahoo')
-        keyword_top.append('madasfish')
-        keyword_top.append('antivirus software')
-        keyword_top.append('ebay')
-        keyword_top.append('yahoo mail')
-        keyword_top.append('craigslist')
-        keyword_top.append('aot')
-        keyword_top.append('paid to promote')
-        keyword_top.append('dvd movies online')
-        keyword_top.append('gmail')
-        keyword_top.append('games')
-        keyword_top.append('fb')
-        keyword_top.append('internetreal')
-        keyword_top.append('shopping')
-        keyword_top.append('proxy dozer')
-        keyword_top.append('amazon')
-        keyword_top.append('jobs')
-        keyword_top.append('video')
-        keyword_top.append('promote')
-        keyword_top.append('new')
-        keyword_top.append('twitter')
-        keyword_top.append('minecraft')
-        keyword_top.append('paid to')
-        keyword_top.append('free')
-        keyword_top.append('earn cpcs')
-        keyword_top.append('earn chi')
-        keyword_top.append('netflix')
-        keyword_top.append('videos')
-        keyword_top.append('net')
-        keyword_top.append('pulse')
-        keyword_top.append('posted by')
-        keyword_top.append('date you')
-        keyword_top.append('news')
-        keyword_top.append('this date')
-        keyword_top.append('msn')
-        keyword_top.append('dating')
-        keyword_top.append('birthday gifts')
-        keyword_top.append('cars')
-        keyword_top.append('best100tattoos')
-        keyword_top.append('walmart')
-        keyword_top.append('lkckclckli1i')
-        keyword_top.append('sports')
-        keyword_top.append('software')
-        keyword_top.append('music')
-        keyword_top.append('the')
-        keyword_top.append('email marketing')
-        keyword_top.append('broadband')
-        keyword_top.append('online')
-        keyword_top.append('insurance')
-        keyword_top.append('movie')
-        keyword_top.append('tramadol')
-        keyword_top.append('weight loss')
-        keyword_top.append('chat')
-        keyword_top.append('home')
-        keyword_top.append('yahoo google')
-        keyword_top.append('car insurance')
-        keyword_top.append('face')
-        keyword_top.append('spyware')
-        keyword_top.append('you tube')
-	
-print \
-"""
-
-                  /\    
-                 / |\   
-                / /\ \   
-               / /  \ \  
-              / /    \ |
-             /_/      \_|
-             \    '`    /
-              )   ||   ( 
-              |   ||   | 
-              |   ||   | 
-              |   ||   |
-              |   ||   |
-              |   ||   | 
-              |   ||   | 
-              |   ||   | 
-              |   ||   | 
-              |   ||   |
-  /           |   ||   |           =
- /(           |   ||   |           )=
- |`\_         |   ||   |         _/'|
- |`. `-._     |   ||   |     _,-' ,'|
- (   ` . `-._ |  _--_  | _,-' , '   )
-  `.._   ` . `-./.__.\.-' , '   _,-'
-      `-._   ` | /  \ | '   _,-'
-          `-._/ |_()_| \_,-'
-       ___.-'   ______   `-,
-      '-----.  |______|   /  I'm an assassin I was 
-             \  ______   /   in fear and exhaustion in my 
-             |  \>  </  /    heart. Soon my prior sins may hit me. I will offer blood to my
-              \________/     weapon to save me. If one year has passed, I will be saved from the worst case.
-              _]______[_    
-              |        |     
-              |________|
-               ]______[#     
-              |        |
-              |________|     
-              _]______[_     
-              |        |     
-              |________|    
-              _]______[_
-              |        |
-              |________|
-                ]____[
-              .'      `.
-              | <   >  |>
-             <|   <   >| 
-               `.____.'
-                 V   V 
-"""""""""
-		 
-
-# generates a user agent array
 def useragent_list():
 	global headers_useragents
 	headers_useragents = []
@@ -3768,3 +3652,15 @@ if __name__ == '__main__':
 #     -t : lasting time of ddos
 
 #     -c : numbers of thread to create
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
