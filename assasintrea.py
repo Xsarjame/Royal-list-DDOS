@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-#coding: Xsarjame
-#..:: > assasin trea < ::.. Xsarjame :v
-
 import random
 import socket
 import threading
