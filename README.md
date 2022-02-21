@@ -5,6 +5,9 @@ cd Royal-list-DDOS
 
 python2 assasintrea.py
 
+            
+            	print \
+"""
                   /\    
                  / |\   
                 / /\ \   
@@ -31,10 +34,10 @@ python2 assasintrea.py
       `-._   ` | /  \ | '   _,-'
           `-._/ |_()_| \_,-'
        ___.-'   ______   `-,
-      '-----.  |______|   /  
-             \  ______   /   
-             |  \>  </  /    
-              \________/    
+      '-----.  |______|   /  I'm an assassin I was 
+             \  ______   /   in fear and exhaustion in my 
+             |  \>  </  /    heart. Soon my prior sins may hit me. I will offer blood to my
+              \________/     weapon to save me. If one year has passed, I will be saved from the worst case.
               _]______[_    
               |        |     
               |________|
@@ -53,3 +56,5 @@ python2 assasintrea.py
              <|   <   >| 
                `.____.'
                  V   V 
+"""""""""
+		 
