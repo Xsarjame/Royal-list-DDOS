@@ -6,7 +6,6 @@ cd Royal-list-DDOS
 python2 assasintrea.py
 
             
-            	print \
 """
                   /\    
                  / |\   
