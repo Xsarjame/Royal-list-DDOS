@@ -3,7 +3,7 @@ git clone https://github.com/Xsarjame/Royal-list-DDOS
 
 cd Royal-list-DDOS
 
-python2 assasintrea.py
+python3 blade.py
 
 
 		 
