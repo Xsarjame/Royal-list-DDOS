@@ -3410,58 +3410,25 @@ def buildblock(size):
 	return(out_str)
 
 def usage():
-	print 'Example: python2 assasintrea.py http://www.navinbcc.com/
+	print 'D4rk Mass DDoS Tool created by D4rkN3n'
+	print 'Facebook Profile: https://www.facebook.com/profile.php?id=100013355013276'
+	print 'Usage: d4rk.py (url)'
+	print 'Example: d4rk.py http://target.com/'
+	print "\a"
 print \
+"""                                                       
+ (                    
+ )\ )      )       )  
+(()/(   ( /((   ( /(  
+ /(_))  )\())(  )\()) 
+(_))_  ((_)(()\((_)\  
+ |   \| | (_|(_) |(_) 
+ | |) |_  _| '_| / /  
+ |___/  |_||_| |_\_\  
+                      
+_________________________
+                                                
 """
-                  /\    
-                 / |\   
-                / /\ \   
-               / /  \ \  
-              / /    \ |
-             /_/      \_|
-             \    '`    /
-              )   ||   ( 
-              |   ||   | 
-              |   ||   | 
-              |   ||   |
-              |   ||   |
-              |   ||   | 
-              |   ||   | 
-              |   ||   | 
-              |   ||   | 
-              |   ||   |
-  /           |   ||   |           =
- /(           |   ||   |           )=
- |`\_         |   ||   |         _/'|
- |`. `-._     |   ||   |     _,-' ,'|
- (   ` . `-._ |  _--_  | _,-' , '   )
-  `.._   ` . `-./.__.\.-' , '   _,-'
-      `-._   ` | /  \ | '   _,-'
-          `-._/ |_()_| \_,-'
-       ___.-'   ______   `-,
-      '-----.  |______|   /  I'm an assassin I was 
-             \  ______   /   in fear and exhaustion in my 
-             |  \>  </  /    heart. Soon my prior sins may hit me. I will offer blood to my
-              \________/     weapon to save me. If one year has passed, I will be saved from the worst case.
-              _]______[_    
-              |        |     
-              |________|
-               ]______[#     
-              |        |
-              |________|     
-              _]______[_     
-              |        |     
-              |________|    
-              _]______[_
-              |        |
-              |________|
-                ]____[
-              .'      `.
-              | <   >  |>
-             <|   <   >| 
-               `.____.'
-                 V   V 
-"""""""""
 
 	
 #http request
