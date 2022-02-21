@@ -1,3 +1,55 @@
+print \
+"""
+                  /\    
+                 / |\   
+                / /\ \   
+               / /  \ \  
+              / /    \ |
+             /_/      \_|
+             \    '`    /
+              )   ||   ( 
+              |   ||   | 
+              |   ||   | 
+              |   ||   |
+              |   ||   |
+              |   ||   | 
+              |   ||   | 
+              |   ||   | 
+              |   ||   | 
+              |   ||   |
+  /           |   ||   |           =
+ /(           |   ||   |           )=
+ |`\_         |   ||   |         _/'|
+ |`. `-._     |   ||   |     _,-' ,'|
+ (   ` . `-._ |  _--_  | _,-' , '   )
+  `.._   ` . `-./.__.\.-' , '   _,-'
+      `-._   ` | /  \ | '   _,-'
+          `-._/ |_()_| \_,-'
+       ___.-'   ______   `-,
+      '-----.  |______|   /  I'm an assassin I was 
+             \  ______   /   in fear and exhaustion in my 
+             |  \>  </  /    heart. Soon my prior sins may hit me. I will offer blood to my
+              \________/     weapon to save me. If one year has passed, I will be saved from the worst case.
+              _]______[_    
+              |        |     
+              |________|
+               ]______[#     
+              |        |
+              |________|     
+              _]______[_     
+              |        |     
+              |________|    
+              _]______[_
+              |        |
+              |________|
+                ]____[
+              .'      `.
+              | <   >  |>
+             <|   <   >| 
+               `.____.'
+                 V   V 
+""""
+
 import os
 import re
 import sys
@@ -3210,9 +3262,9 @@ def useragent_list():
 	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 6.1; Windows XP)')
 	headers_useragents.append('Opera/9.80 (Windows NT 5.2; U; ru) Presto/2.5.22 Version/10.51')
         return(headers_useragents)
+
 # generates a user agent array
 def referer_list():
-
 	global headers_referers
         headers_referers.append('https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/sharer/sharer.php?u=')
         headers_referers.append('http://www.google.com/?q=')
@@ -3475,64 +3527,12 @@ def referer_list():
 	headers_referers.append('http://' + host + '/')
 	return(headers_referers)
 
-	print \
-"""
-                  /\    
-                 / |\   
-                / /\ \   
-               / /  \ \  
-              / /    \ |
-             /_/      \_|
-             \    '`    /
-              )   ||   ( 
-              |   ||   | 
-              |   ||   | 
-              |   ||   |
-              |   ||   |
-              |   ||   | 
-              |   ||   | 
-              |   ||   | 
-              |   ||   | 
-              |   ||   |
-  /           |   ||   |           =
- /(           |   ||   |           )=
- |`\_         |   ||   |         _/'|
- |`. `-._     |   ||   |     _,-' ,'|
- (   ` . `-._ |  _--_  | _,-' , '   )
-  `.._   ` . `-./.__.\.-' , '   _,-'
-      `-._   ` | /  \ | '   _,-'
-          `-._/ |_()_| \_,-'
-       ___.-'   ______   `-,
-      '-----.  |______|   /  I'm an assassin I was 
-             \  ______   /   in fear and exhaustion in my 
-             |  \>  </  /    heart. Soon my prior sins may hit me. I will offer blood to my
-              \________/     weapon to save me. If one year has passed, I will be saved from the worst case.
-              _]______[_    
-              |        |     
-              |________|
-               ]______[#     
-              |        |
-              |________|     
-              _]______[_     
-              |        |     
-              |________|    
-              _]______[_
-              |        |
-              |________|
-                ]____[
-              .'      `.
-              | <   >  |>
-             <|   <   >| 
-               `.____.'
-                 V   V 
-"""""""""
-
 def handler(signum,_):
 	# if signum == signal.SIGALRM:
 		# print 'Time is up'
 		# print 'Attack finished '
 	sys.exit()	
-
+	
 #builds random ascii string
 def buildblock(size):
 	out_str = ''
