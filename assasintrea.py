@@ -9,59 +9,6 @@ import random
 import urllib
 import threading
 
-print \
-"""
-
-                  /\    
-                 / |\   
-                / /\ \   
-               / /  \ \  
-              / /    \ |
-             /_/      \_|
-             \    '`    /
-              )   ||   ( 
-              |   ||   | 
-              |   ||   | 
-              |   ||   |
-              |   ||   |
-              |   ||   | 
-              |   ||   | 
-              |   ||   | 
-              |   ||   | 
-              |   ||   |
-  /           |   ||   |           =
- /(           |   ||   |           )=
- |`\_         |   ||   |         _/'|
- |`. `-._     |   ||   |     _,-' ,'|
- (   ` . `-._ |  _--_  | _,-' , '   )
-  `.._   ` . `-./.__.\.-' , '   _,-'
-      `-._   ` | /  \ | '   _,-'
-          `-._/ |_()_| \_,-'
-       ___.-'   ______   `-,
-      '-----.  |______|   /  I'm an assassin I was 
-             \  ______   /   in fear and exhaustion in my 
-             |  \>  </  /    heart. Soon my prior sins may hit me. I will offer blood to my
-              \________/     weapon to save me. If one year has passed, I will be saved from the worst case.
-              _]______[_    
-              |        |     
-              |________|
-               ]______[#     
-              |        |
-              |________|     
-              _]______[_     
-              |        |     
-              |________|    
-              _]______[_
-              |        |
-              |________|
-                ]____[
-              .'      `.
-              | <   >  |>
-             <|   <   >| 
-               `.____.'
-                 V   V 
-"""""""""
-
 def usage():
 	# print ''' usage : python attack.py [-t] [-c] http://www.zhihu.com/
 	# -h : help
@@ -73,6 +20,18 @@ def usage():
 # generates a user agent array
 def useragent_list():
 	global headers_useragents
+	headers_useragents = []
+	headers_useragents.append('Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.3) Gecko/20090913 Firefox/3.5.3')
+	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 6.1; en; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)')
+	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)')
+	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.1) Gecko/20090718 Firefox/3.5.1')
+	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/532.1 (KHTML, like Gecko) Chrome/4.0.219.6 Safari/532.1')
+	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; InfoPath.2)')
+	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Win64; x64; Trident/4.0)')
+	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; SV1; .NET CLR 2.0.50727; InfoPath.2)')
+	headers_useragents.append('Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)')
+	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 6.1; Windows XP)')
+	headers_useragents.append('Opera/9.80 (Windows NT 5.2; U; ru) Presto/2.5.22 Version/10.51')
 	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/532.1 (KHTML, like Gecko) Chrome/4.0.219.6 Safari/532.1')
 	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; InfoPath.2)')
 	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; SLCC1; .NET CLR 2.0.50727; .NET CLR 1.1.4322; .NET CLR 3.5.30729; .NET CLR 3.0.30729)')
@@ -3507,22 +3466,57 @@ def referer_list():
 	headers_referers.append('http://search.iminent.com/es-ES/search/#q=')
 	return(headers_referers)
 
-# generates a user agent array
-def useragent_list():
-	global headers_useragents
-	headers_useragents = []
-	headers_useragents.append('Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.3) Gecko/20090913 Firefox/3.5.3')
-	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 6.1; en; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)')
-	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)')
-	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.1) Gecko/20090718 Firefox/3.5.1')
-	headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/532.1 (KHTML, like Gecko) Chrome/4.0.219.6 Safari/532.1')
-	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; InfoPath.2)')
-	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Win64; x64; Trident/4.0)')
-	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; SV1; .NET CLR 2.0.50727; InfoPath.2)')
-	headers_useragents.append('Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)')
-	headers_useragents.append('Mozilla/4.0 (compatible; MSIE 6.1; Windows XP)')
-	headers_useragents.append('Opera/9.80 (Windows NT 5.2; U; ru) Presto/2.5.22 Version/10.51')
-	return(headers_useragents)
+print \
+"""
+                  /\    
+                 / |\   
+                / /\ \   
+               / /  \ \  
+              / /    \ |
+             /_/      \_|
+             \    '`    /
+              )   ||   ( 
+              |   ||   | 
+              |   ||   | 
+              |   ||   |
+              |   ||   |
+              |   ||   | 
+              |   ||   | 
+              |   ||   | 
+              |   ||   | 
+              |   ||   |
+  /           |   ||   |           =
+ /(           |   ||   |           )=
+ |`\_         |   ||   |         _/'|
+ |`. `-._     |   ||   |     _,-' ,'|
+ (   ` . `-._ |  _--_  | _,-' , '   )
+  `.._   ` . `-./.__.\.-' , '   _,-'
+      `-._   ` | /  \ | '   _,-'
+          `-._/ |_()_| \_,-'
+       ___.-'   ______   `-,
+      '-----.  |______|   /  I'm an assassin I was 
+             \  ______   /   in fear and exhaustion in my 
+             |  \>  </  /    heart. Soon my prior sins may hit me. I will offer blood to my
+              \________/     weapon to save me. If one year has passed, I will be saved from the worst case.
+              _]______[_    
+              |        |     
+              |________|
+               ]______[#     
+              |        |
+              |________|     
+              _]______[_     
+              |        |     
+              |________|    
+              _]______[_
+              |        |
+              |________|
+                ]____[
+              .'      `.
+              | <   >  |>
+             <|   <   >| 
+               `.____.'
+                 V   V 
+"""""""""
 
 # generates a referer array
 def referer_list():
@@ -3652,15 +3646,3 @@ if __name__ == '__main__':
 #     -t : lasting time of ddos
 
 #     -c : numbers of thread to create
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
