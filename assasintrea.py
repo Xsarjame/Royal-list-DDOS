@@ -3475,12 +3475,6 @@ def referer_list():
 	headers_referers.append('http://' + host + '/')
 	return(headers_referers)
 
-def handler(signum,_):
-	# if signum == signal.SIGALRM:
-		# print 'Time is up'
-		# print 'Attack finished '
-	sys.exit()
-	
 	print \
 """
                   /\    
@@ -3532,6 +3526,12 @@ def handler(signum,_):
                `.____.'
                  V   V 
 """""""""
+
+def handler(signum,_):
+	# if signum == signal.SIGALRM:
+		# print 'Time is up'
+		# print 'Attack finished '
+	sys.exit()	
 
 #builds random ascii string
 def buildblock(size):
@@ -3630,7 +3630,6 @@ if __name__ == '__main__':
 	time.sleep(int(interval))
 	signal.alarm(0)
 	print ("main thread exit...")
-
 
 # 	ddos
 # ====
